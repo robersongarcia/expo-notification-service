@@ -85,7 +85,7 @@ app.post("/send-notifications", async (req, res) => {
         return res.status(200).send("No tokens found")
     }
 
-    await sendNotifications(tokens, uid, 'TestNotification')
+    await sendNotifications(tokens, uid, 'ALERTA')
 
     res.status(200).send("Notifications sent")
 })
