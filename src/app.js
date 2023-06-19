@@ -65,15 +65,15 @@ app.post('/send-notifications', async (req, res) => {
 
 	console.log({ uid });
 
-	if (!uid) {
+	if (uid === undefined) {
 		return res.status(400).send('Invalid Request: no uid');
 	}
 
-	if (!alert) {
+	if (alert === undefined) {
 		return res.status(400).send('Invalid Request: no alert');
 	}
 
-	if (!summary) {
+	if (summary === undefined) {
 		return res.status(400).send('Invalid Request: no summary');
 	}
 
