@@ -61,12 +61,12 @@ app.get('/', (req, res) => {
 });
 
 app.post('/send-notifications', async (req, res) => {
-	const { user, alert, summary } = req.body;
+	const { patient, alert, summary } = req.body;
 
-	console.log({ user });
+	console.log({ patient });
 
-	if (user === undefined) {
-		return res.status(400).send('Invalid Request: no user');
+	if (patient === undefined) {
+		return res.status(400).send('Invalid Request: no patient');
 	}
 
 	if (alert === undefined) {
@@ -77,7 +77,7 @@ app.post('/send-notifications', async (req, res) => {
 		return res.status(400).send('Invalid Request: no summary');
 	}
 
-	const resp = await getPatientInfo(user.uid);
+	const resp = await getPatientInfo(patient.uid);
 
 	if (!resp) {
 		return res.status(400).send('Invalid Request: Patient not found');
@@ -99,7 +99,7 @@ app.post('/send-notifications', async (req, res) => {
 		const fullName = `${resp.firstName} ${resp.lastName}`;
 		const title = `ALERTA: Paciente ${fullName}`;
 		const message = `Resumen de questionario: ${summary}`;
-		await sendNotifications(tokens, { uid: user.uid }, title, message);
+		await sendNotifications(tokens, { uid: patient.uid }, title, message);
 	}
 
 	res.status(200).send('Notifications sent');
